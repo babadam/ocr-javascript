@@ -26,12 +26,12 @@ function infosLiens(){
 }
 infosLiens();
 
-
-function possede(id, classe){
-    if (document.getElementById(id).hasAttributes(classe)){
-        console.log("True")
+function possede(element, classe){
+    var instrument = document.getElementById(element);
+    if ( instrument !== null){
+        console.log(instrument.classList.contains(classe));
     } else {
-        console.log("False");
+        console.error("La classe " + classe + " n'existe pas");
     }
 }
 possede("saxophone", "bois"); // Doit afficher true
