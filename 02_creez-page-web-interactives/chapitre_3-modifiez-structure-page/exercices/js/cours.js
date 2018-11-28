@@ -60,3 +60,26 @@ document.getElementById("langages").replaceChild(bashElt, document.getElementByI
 
 // Supression d'un élément
 document.getElementById("langages").removeChild(document.getElementById("bash"));
+
+// EXERCICE
+// Ajout d'un élément p en dessous de la liste
+
+// Ce qu ej'ai fait
+// var paraWikiElt = document.createElement("p");
+// var lienWikiElt = document.createElement("a");
+// paraWikiElt.textContent = "En voici une liste plus complète.";
+// lienWikiElt.href="https://fr.wikipedia.org/wiki/Liste_des_langages_de_programmation";
+// lienWikiElt.textContent = "liste";
+//
+// document.getElementById("contenu").appendChild(paraWikiElt);
+// document.getElementById("contenu").insertAdjacentHTML("afterBegin", lienWikiElt);
+
+// Correction
+var paraWikiElt = document.createElement("p");
+var lienWikiElt = document.createElement("a");
+lienWikiElt.href = "https://fr.wikipedia.org/wiki/Liste_des_langages_de_programmation";
+lienWikiElt.textContent = "liste";
+paraWikiElt.appendChild(document.createTextNode("En voici une "));
+paraWikiElt.appendChild(lienWikiElt);
+paraWikiElt.appendChild(document.createTextNode(" plus complète."));
+document.getElementById("contenu").appendChild(paraWikiElt);
