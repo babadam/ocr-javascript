@@ -15,3 +15,65 @@ var questions = [
         reponse: "La lettre N"
     }
 ];
+
+/***** Ce que j'ai fait : ne fonctionne pas *****/
+// for (var i = 0; i < questions.length; i++){
+//     var div = document.createElement("div");
+//     var btn = document.createElement("button");
+//     var span = document.createElement("span");
+//     div.textContent = "Question " + (i+1) + " : ";
+//     span.textContent = questions[i].enonce;
+//     btn.textContent = "Afficher la question";
+//     btn.style.display = "block";
+//     btn.style.margin = "0.5% 0%";
+//     div.appendChild(span);
+//     div.appendChild(btn);
+//     document.getElementById("contenu").appendChild(div);
+//     function afficheReponse (){
+//         btn.style.display = "none";
+//         div2 = document.createElement("div");
+//         div2.textContent = questions[i].reponse;
+//         document.getElementById("contenu").appendChild(div2);
+//     }
+// }
+// btn.addEventListener("click", afficheReponse);
+
+/****** [CORRECTION] *******/
+var i = 1; // Permet de numéroter les questions
+
+questions.forEach(function (question) {
+    // Titre de la question
+    var titreElt = document.createElement("strong");
+    titreElt.textContent = "Question " + i + " : ";
+
+    // Enoncé de la question (dans une balise <i>)
+    var texteEnonceElt = document.createElement("i");
+    texteEnonceElt.textContent = question.enonce;
+
+    // Enoncé de lq question
+    var enonceElt = document.createElement("div");
+    enonceElt.appendChild(titreElt);
+    enonceElt.appendChild(texteEnonceElt);
+
+    // La zone de réponse contient initialement un bouton
+    var zoneReponseElt = document.createElement("div");
+    var boutonElt = document.createElement("button");
+    boutonElt.textContent = "Afficher la réponse";
+    zoneReponseElt.appendChild(boutonElt);
+
+    boutonElt.addEventListener("click", function () {
+        // Remplacement du bouton par la réponse à la question
+        var reponseElt = document.createElement("div");
+        reponseElt.textContent = question.reponse;
+        zoneReponseElt.innerHTML = "";
+        zoneReponseElt.appendChild(reponseElt);
+    });
+
+    // La question regroupe l'énoncé et la zone de réponse
+    var questionElt = document.createElement("p");
+    questionElt.appendChild(enonceElt);
+    questionElt.appendChild(zoneReponseElt);
+    document.getElementById("contenu").appendChild(questionElt);
+
+    i++;
+});
