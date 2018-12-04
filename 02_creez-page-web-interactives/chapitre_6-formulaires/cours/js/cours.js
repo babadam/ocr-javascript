@@ -93,3 +93,53 @@ form.addEventListener("submit", function (e) {
     }
     e.preventDefault(); // Annulation de l'envoi des données
 });
+
+
+/****** IV. Validation des données saisies ******/
+
+/*** 1) Validation pendant la saisie ***/
+// Vérification de la longueur du mot de passe saisi
+document.getElementById("mdp").addEventListener("input", function (e) {
+    var mdp = e.target.value; // Valeur saisie dans le champs mdp
+    var longueurMdp = "faible";
+    var couleurMsg = "red"; // longueur faible -> couleur rouge
+    if (mdp.length >= 8){
+        longueurMdp = "suffisante";
+        couleurMsg = "green" // Longueur suffisante -> couleur verte
+    } else if (mdp.length >= 4){
+        longueurMdp = "moyenne";
+        couleurMsg = "orange"; // Longueur moyenne -> couleur orange
+    }
+    var aideMdpElt = document.getElementById("aideMdp");
+    aideMdpElt.textContent = "Longueur : " + longueurMdp; // Texte de l'aide
+    aideMdpElt.style.color = couleurMsg; // Couleur du texte de l'aide
+});
+
+/*** 2) Validation à la fin de la saisie ***/
+// Contrôle du courriel en fin de saisie
+document.getElementById("courriel").addEventListener("blur", function (e) {
+    var validiteCourriel = "";
+    if (e.target.value.indexOf("@") === -1){
+        // Le courriel saisi ne contient pas le caractère @
+        validiteCourriel = "Adresse invalide";
+    }
+    document.getElementById("aideCourriel").textContent = validiteCourriel;
+});
+
+/*** 3) Utulisation d'une expression régulière ***/
+var regex = /@/; // La chaîne doit contenir le caractère @
+console.log(regex.test("")); // Affiche false
+console.log(regex.test("@")); // Affiche true
+console.log(regex.test("sophie&mail.fr")); // Affiche false
+console.log(regex.test("sophie@mail.fr")); // Affiche true
+
+// Contrôle courriel en fin de saisie avec expression régulière
+document.getElementById("courriel").addEventListener("blur", function (e) {
+    // Correspond à une chaîne de la forme xxx@yyy.zzz
+    var regexCourriel = /.+@.+\..+/;
+    var validiteCourriel = "";
+    if (!regexCourriel.test(e.target.value)) {
+        validiteCourriel = "Adresse invalide";
+    }
+    document.getElementById("aideCourriel").textContent = validiteCourriel;
+});
