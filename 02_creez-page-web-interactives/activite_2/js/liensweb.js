@@ -74,9 +74,71 @@ for ( var i=0; i<listeLiens.length; i++){
     document.getElementById("contenu").appendChild(liste);
 }
 
-// Appartition du formulaire au click
+// Appartition du formulaire au clic
 bouton = document.getElementById("button");
 bouton.addEventListener("click", function (e) {
     document.getElementById("formulaire").style.display = "block";
     bouton.style.display = "none";
 })
+
+// Validation formulaire
+var form = document.querySelector("form");
+form.addEventListener("submit", function (e) {
+    var nom = form.elements.nom.value;
+    var titre = form.elements.titre.value;
+    var url = form.elements.url.value;
+    var regexUrl = /http/;
+    var message = "";
+
+    if ( (nom !== "") && (titre !== "") && (url !== "") ){
+        var liNouveau = document.createElement("li");
+        var aNouveau = document.createElement("a");
+        var spanNouveau = document.createElement("span");
+        var pNouveau = document.createElement("p");
+        liNouveau.classList.add("lien");
+        liNouveau.style.listStyle = "none";
+        aNouveau.href = url;
+        aNouveau.textContent = titre;
+        aNouveau.style.color = "#428bca";
+        aNouveau.style.fontWeight = "bold";
+        aNouveau.style.marginRight = "0.5%";
+        aNouveau.style.textDecoration = "none";
+        pNouveau.textContent = "Ajouté par " + nom;
+        pNouveau.style.fontSize = "80%";
+        pNouveau.style.margin = "3px 0px";
+
+        message = "Le lien " + titre + " a bien été ajouté.";
+        form.style.display = "none";
+        bouton.style.display = "block";
+            if ( regexUrl.test(url) ){
+                spanNouveau.textContent = url;
+            } else {
+            spanNouveau.textContent ="http://" + url;
+            }
+        // Insertion du <a><span><p> dans le <li>
+        liNouveau.appendChild(aNouveau);
+        liNouveau.appendChild(spanNouveau);
+        liNouveau.appendChild(pNouveau);
+
+        // Insertion du <li> dans le <ul>
+        liste.appendChild(liNouveau);
+
+        // Insertion du <ul> dans <div id="contenu">
+        document.getElementById("contenu").appendChild(liste);
+
+        // affiche le message deux secondes
+        var msg = document.getElementById("msg");
+        msg.textContent = message;
+        msg.style.padding = "1.5em";
+        msg.style.marginTop = "1em";
+        msg.style.backgroundColor = "#A0E1F5";
+        msg.style.borderRadius = "5px";
+        msg.style.color = "#428bca";
+        setTimeout(function () {
+            msg.textContent = "";
+            msg.style = "";
+
+        }, 2000);
+    }
+    e.preventDefault();
+});
