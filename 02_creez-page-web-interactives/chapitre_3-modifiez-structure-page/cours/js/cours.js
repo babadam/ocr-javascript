@@ -34,4 +34,33 @@ var pythonElt = document.createElement("li"); // Création d'un élément li
 pythonElt.id = "python"; // Définition de son id
 pythonElt.textContent = "Python"; // Définition de son contenu textuel
 document.getElementById("langages").appendChild(pythonElt); // Insertion du nouvel élément
- 
+
+
+/**** VARIANTES POUR AJOUTER UN ELEMENT ****/
+
+var rubyElt = document.createElement("li");// Création d'un élément li
+rubyElt.id = "ruby"; // Définition de son ID
+rubyElt.appendChild(document.createTextNode("Ruby")); // Définition de son contenu textuel
+document.getElementById("langages").appendChild(rubyElt); // Insertion du nouvel élément
+
+var perlElt = document.createElement("li"); // Création d'un élément li
+perlElt.id = "perl"; // Définition de son ID
+perlElt.appendChild(document.createTextNode("perl")); // Définition de son contenu textuel
+document.getElementById("langages").insertBefore(perlElt, document.getElementById("php"));
+
+// Ajout d'un élément au tout début de la liste
+document.getElementById('langages').insertAdjacentHTML("afterBegin",
+    '<li id="javascript">JavaScript</li>');
+
+
+/**** REMPLACER OU SUPPRIMER UN NOEUD ****/
+
+/*** Remplacer un noeud existant***/
+var bashElt = document.createElement("li"); // Création d'un nouvel élément li
+bashElt.id = "bash"; // Définition de son ID
+bashElt.appendChild(document.createTextNode("Bash")); // Définition de son contenu textuel
+document.getElementById("langages").replaceChild(bashElt, document.getElementById("perl"));
+
+/*** Supprimer un noeud ***/
+// Suppression de l'élément identifié par "bash"
+document.getElementById("langages").removeChild(document.getElementById("bash"));
